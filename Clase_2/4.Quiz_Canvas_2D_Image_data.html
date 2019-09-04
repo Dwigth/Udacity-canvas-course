@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz: Canvas 2D Image data</title>
+</head>
+
+<body>
+
+    <canvas id="c" width="500" height="500"></canvas>
+
+    <script>
+        let canvas = document.querySelector("#c");
+        let ctx = canvas.getContext("2d");
+
+        const imageData = ctx.createImageData(100, 100);
+        // Iterate through every pixel
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            if (i % 10 == 0) {
+                // Modify pixel data
+                imageData.data[i + 0] = 0;  // R value
+                imageData.data[i + 1] = 255;    // G value
+                imageData.data[i + 2] = 0;  // B value
+                imageData.data[i + 3] = 255;  // A value
+            }
+
+        }
+
+        ctx.putImageData(imageData, 20, 20);
+    </script>
+</body>
+
+</html>

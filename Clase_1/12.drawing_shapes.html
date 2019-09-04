@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drawing your first shapes</title>
+</head>
+
+<body>
+    <canvas id="c" width="500" height="500"></canvas>
+    <script>
+        var c = document.querySelector('#c');
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = 'lightgreen';
+        function drawAll() {
+            drawAntenna();
+            drawBody();
+            drawFoot();
+            drawArm();
+        }
+
+        function drawAntenna() {
+
+            //left
+            ctx.fillRect(20, 0, 10, 10);
+            ctx.fillRect(30, 10, 10, 10);
+
+            //right
+            ctx.fillRect(70, 0, 10, 10);
+            ctx.fillRect(60, 10, 10, 10);
+        }
+
+        function drawBody() {
+            for (let i = 2; i <= 7; i++) {
+                let x = i * 10;
+                for (let f = 2; f <= 5; f++) {
+                    let y = f * 10;
+                    if (x == 30 && y == 30 || x == 60 && y == 30) {
+                        ctx.strokeRect(x, y, 10, 10);
+                    } else {
+                        ctx.fillRect(x, y, 10, 10);
+                    }
+                }
+            }
+        }
+
+        function drawFoot() {
+            //left
+            ctx.fillRect(30, 60, 10, 10);
+            ctx.fillRect(20, 70, 10, 10);
+            //right
+            ctx.fillRect(60, 60, 10, 10);
+            ctx.fillRect(70, 70, 10, 10);
+        }
+
+
+        function drawArm() {
+            //left
+            ctx.fillRect(10, 30, 10, 10);
+            ctx.fillRect(10, 40, 10, 10);
+            ctx.fillRect(0, 40, 10, 10);
+            ctx.fillRect(0, 50, 10, 10);
+            ctx.fillRect(0, 60, 10, 10);
+            //right
+            ctx.fillRect(80, 30, 10, 10);
+            ctx.fillRect(80, 40, 10, 10);
+            ctx.fillRect(90, 40, 10, 10);
+            ctx.fillRect(90, 50, 10, 10);
+            ctx.fillRect(90, 60, 10, 10);
+        }
+
+        drawAll();
+        // ctx.fillRect(100, 100, 100, 100);
+        // ctx.strokeRect(50, 50, 50, 50);
+    </script>
+</body>
+
+</html>

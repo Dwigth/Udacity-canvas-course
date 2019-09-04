@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grayscale Quiz</title>
+</head>
+
+<body>
+
+    <canvas id="c" width="500" height="500"></canvas>
+
+    <script>
+        let canvas = document.querySelector("#c");
+        let ctx = canvas.getContext("2d");
+        let src = "../Assets/atitequedabienbob.jpg";
+
+        loadImage();
+
+        function copyCanvas(img) {
+            ctx.drawImage(img, 0, 0);
+        }
+
+        function loadImage() {
+            var img = new Image();
+            img.onload = function () {
+                copyCanvas(img);
+            };
+            img.src = src;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => {
+                setTimeout(resolve, ms);
+            })
+        }
+
+        sleep(1000).then(() => {
+            const imageData = ctx.getImageData(10, 10, canvas.width, canvas.height);
+            // Iterate through every pixel
+
+            /*
+            Formula para obtener el color gris
+            Gray = (Red + Green + Blue) / 3
+            */
+
+            let Pixels = [];
+            let UINT8Array = [];
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                // Modify pixel data
+                let red = imageData.data[i + 0];     // R value
+                let green = imageData.data[i + 1];      // G value
+                let blue = imageData.data[i + 2];      // B value
+                let alpha = imageData.data[i + 3];    // A value
+                let gray = (red + green + blue) / 3;
+                gray = Math.round(gray);
+                let pixel = {
+                    red: red,
+                    green: green,
+                    blue: blue,
+                    alpha: alpha,
+                    gray: gray
+                }
+                Pixels.push(pixel);
+
+                red = gray;
+                green = gray;
+                blue = gray;
+                UINT8Array.push(red, green, blue, alpha);
+
+            }
+            // console.log(imageData);
+            let graysPixels = new Uint8ClampedArray(UINT8Array);
+            // console.log("====>", graysPixels);
+
+            // console.log(Pixels);
+            // console.log(UINT8Array);
+
+            let _imageData = new ImageData(graysPixels, canvas.width, canvas.height);
+            console.log(_imageData);
+
+            ctx.putImageData(_imageData, 0, 0);
+        });
+
+        // ctx.putImageData(imageData, 20, 20);
+    </script>
+</body>
+
+</html>
